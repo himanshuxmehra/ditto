@@ -4,6 +4,7 @@ from config import OLLAMA_API_URL
 from assistants.base_assistant import BaseAssistant
 from features import reminders, notes, schedule, todos, user_info
 from utils.date_utils import parse_date  
+from utils.loading import LoadingAnimation
 
 class LLMAssistant(BaseAssistant):
     def sendRequest(self, prompt):
@@ -12,9 +13,10 @@ class LLMAssistant(BaseAssistant):
             "prompt": prompt,
             "stream": True
         }
+        loading = LoadingAnimation("Processing")
+        loading.start()
         r = requests.post(OLLAMA_API_URL, json=data, stream=True)
         r.raise_for_status()
-        output = ""
         message = ""
         for line in r.iter_lines():
             body = json.loads(line)
@@ -25,6 +27,7 @@ class LLMAssistant(BaseAssistant):
                 # the response streams one token at a time, print that as we receive it
             if body["done"]==True: 
                 # print(message)
+                loading.stop()
                 return message
 
     def query_llm(self, prompt):
