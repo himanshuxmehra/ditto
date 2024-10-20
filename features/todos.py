@@ -1,5 +1,7 @@
 from database.db_operations import get_db_connection
 from config import OLLAMA_API_URL
+from assistants.llm_assistant import LLMAssistant
+
 import requests
 import json
 
@@ -79,5 +81,6 @@ def suggest_priority_tasks(user_info):
         "model": "llama2",
         "prompt": prompt
     }
-    response = requests.post(OLLAMA_API_URL, json=data)
+    response = LLMAssistant.query_llm(prompt)
+    requests.post(OLLAMA_API_URL, json=data)
     return response.json()['response']
