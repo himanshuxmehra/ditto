@@ -2,6 +2,8 @@
 
 your personal assistant in cli with the power of llama3
 
+go implementation of same: https://github.com/hove-tech/gitto
+
 ## Setup
 
 1. curl -fsSL https://ollama.com/install.sh | sh
