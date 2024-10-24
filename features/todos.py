@@ -1,6 +1,5 @@
 from database.db_operations import get_db_connection
 from config import OLLAMA_API_URL
-from assistants.llm_assistant import LLMAssistant
 
 import requests
 import json
@@ -57,6 +56,8 @@ def get_pending_todos():
     return todos
 
 def suggest_priority_tasks(user_info):
+    from assistants.llm_assistant import LLMAssistant
+
     todos = get_pending_todos()
     todo_list = [todo[1] for todo in todos]  # Extract task descriptions
     

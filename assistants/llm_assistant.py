@@ -1,10 +1,10 @@
 import json
 import requests
 from config import OLLAMA_API_URL
-from assistants.base_assistant import BaseAssistant
 from features import reminders, notes, schedule, todos, user_info
 from utils.date_utils import parse_date  
 from utils.loading import LoadingAnimation
+from assistants.base_assistant import BaseAssistant
 
 class LLMAssistant(BaseAssistant):
     def sendRequest(self, prompt):
